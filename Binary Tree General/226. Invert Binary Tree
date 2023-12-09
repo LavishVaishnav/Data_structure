@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if not root:
+            return None
+
+
+        #If you are solving this problem in Python then no need to take extra variable tmp for swaping just use the below code
+        root.left, root.right= root.right, root.left
+
+        #recusive DFS 
+        self.invertTree(root.left) 
+        self.invertTree(root.right)
+        return root   
+
+        

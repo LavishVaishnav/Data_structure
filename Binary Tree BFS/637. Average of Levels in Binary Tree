@@ -1,0 +1,31 @@
+from collections import deque
+
+class Solution(object):
+    def averageOfLevels(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[float]
+        """
+        if not root:
+            return []
+
+        output = []
+        q = deque()
+        q.append(root)
+
+        while q:
+            level_sum = 0
+            level_count = len(q)
+
+            for i in range(level_count):
+                curr = q.popleft()
+                level_sum += curr.val
+
+                if curr.left:
+                    q.append(curr.left)
+                if curr.right:
+                    q.append(curr.right)
+
+            output.append(level_sum / float(level_count))
+
+        return output

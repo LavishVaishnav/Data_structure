@@ -1,0 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        prev, curr= None, float("inf")
+
+        def dfs(node):
+            if not node:
+                return
+
+            dfs(node.left)
+            
+            # nonlocal
+            #The nonlocal keyword is used to inform Python that prev and curr are not local variables within the dfs function. They are defined in an outer scope (in this case, within the getMinimumDifference method), and the function needs to modify them. This allows the function to change the values of these variables in the outer scope from within the nested function (dfs).  
+
+            nonlocal prev, curr
+            if prev:
+                curr= min(curr, node.val- prev.val)
+            prev= node
+            dfs(node.right)
+        dfs(root)
+        return curr            
+        
+        

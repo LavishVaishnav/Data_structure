@@ -1,0 +1,28 @@
+from collections import deque, defaultdict
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        graph= defaultdict(list)
+        indegree= [0]* numCourses
+
+        for pre , final in prerequisites:
+
+            graph[final].append(pre)
+            indegree[pre] +=1
+
+        q= deque([x for x in range(numCourses) if indegree[x]==0])
+
+        topological_sort= []
+
+        while q:
+            node= q.popleft()
+            topological_sort.append(node)
+
+            for neighbor in graph[node]:
+                indegree[neighbor] -=1
+                if indegree[neighbor] ==0:
+                    q.append(neighbor)
+        return topological_sort if len(topological_sort)== numCourses else []             
+
+
+
+        

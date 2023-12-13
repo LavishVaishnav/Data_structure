@@ -1,0 +1,26 @@
+from collections import deque 
+class Solution:
+    def minMutation(self, startGene: str, endGene: str, bank: List[str]) -> int:
+        if endGene not in bank:
+            return -1
+
+        queue = deque([(startGene, 0)])
+        bank= set(bank)
+
+
+        while queue:
+            curr_gene, mutation = queue.popleft()
+
+            if curr_gene == endGene:
+                return mutation
+
+            for i in range(len(curr_gene)):
+                for char in ['A', 'C', 'G', 'T']:
+                    new_gene = curr_gene[:i] + char + curr_gene[i+1:]
+
+                    if new_gene in bank:
+                        bank.remove(new_gene)
+                        queue.append((new_gene, mutation +1 ))
+        return -1                
+
+        

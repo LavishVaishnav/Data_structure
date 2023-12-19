@@ -1,0 +1,20 @@
+import heapq
+
+class Solution:
+    def findMaximizedCapital(self, k, w, profits, capital):
+        projects = sorted(zip(capital, profits))  # Create pairs of (capital, profit) and sort by capital
+        available_profits = []  # Max heap to store available profits
+
+        i = 0
+        n = len(projects)
+        for _ in range(k):
+            while i < n and projects[i][0] <= w:  # Push all available projects into the max heap
+                heapq.heappush(available_profits, -projects[i][1])  # Store profits as negative to create a max heap
+                i += 1
+            
+            if available_profits:  # If there are available profits, choose the maximum and update capital
+                w -= heapq.heappop(available_profits)
+            else:
+                break  # No more projects can be chosen due to capital constraints
+
+        return w

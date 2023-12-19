@@ -1,0 +1,13 @@
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        def helper(base=x, expo=abs(n)):
+            if expo ==0:
+                return 1
+            elif expo %2==0:
+                return helper(base * base, expo//2) #if expo in even
+            else:
+                return base * helper(base * base, (expo-1)//2)
+        f= helper()
+
+        return float(f) if n>=0 else 1/f 
+        

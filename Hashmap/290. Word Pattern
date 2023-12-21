@@ -1,0 +1,19 @@
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        words= str.split(s)
+        if len(words)!= len(pattern):
+            return False
+
+        map ={}
+        usedword=  set()
+
+        for i in range(len(words)):
+            if pattern[i] not in map:
+                if words[i] in usedword:
+                    return False
+                map[pattern[i]]= words[i]
+                usedword.add(words[i])
+            else:
+                if map[pattern[i]] != words[i]:
+                    return False
+        return True                         

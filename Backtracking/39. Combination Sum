@@ -1,0 +1,15 @@
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res=[]
+
+        def dfs(curr,i):
+            s= sum(curr)
+            if s == target:
+                res.append(curr)
+            elif s< target:
+                for j in range(i, len(candidates)):
+                    dfs(curr+ [candidates[j]],j)
+        dfs([],0)
+        return res            
+
+        
